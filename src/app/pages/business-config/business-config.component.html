@@ -1,0 +1,90 @@
+<div class="card flex justify-content-center">
+  <p-toast />
+   <p-card header="Olá, {{account.name}}. Seja bem-vindo" >
+    <p>
+        É necessário configurar a empresa matrix para visualizar todas as informações do sistema
+    </p>
+    <ng-template pTemplate="footer">
+        <div class="flex gap-3 mt-1">
+            <p-button pRipple class="bg-secondary border-round w-full" label="INICIAR CONFIGURAÇÃO" (click)="OpenBusinessDialog()" />
+        </div>
+    </ng-template>
+  </p-card>
+  <!-- DALOG -->
+  <p-dialog header="Editar Empresa" [(visible)]="businessDialog" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '80vw' }">
+    <div class="formgrid" [formGroup]="businessForm">
+      <div class="grid">
+        <div class="field col-4 text-left">
+            <label for="type">Tipo de empresa</label>
+            <input pInputText id="type" type="text" formControlName="type" class="text-base w-full" />
+        </div>
+      </div>
+      <div class="grid">
+        <div class="field col-8 text-left">
+            <label for="name">Nome da empresa*</label>
+            <input pInputText id="name" type="text" formControlName="name" class="text-base w-full" />
+        </div>
+        <div class="field col-4 text-left">
+          <label for="federalId">CNPJ da empresa*</label>
+          <p-inputMask mask="99.999.999/9999-99" id="federalId" type="text" formControlName="federalId" styleClass="w-full" required />
+        </div>
+      </div>
+      <div class="grid">
+        <div class="field col-2 text-left">
+          <label for="zipCode">CEP</label>
+          <p-inputMask mask="99999-999" id="zipCode" type="text" formControlName="zipCode" styleClass="w-full" (onBlur)="ZipCodeBlur()"  />
+        </div>
+        <div class="field col-5 text-left">
+          <label for="address">Endereço</label>
+          <input pInputText id="address" type="text" formControlName="address" class="text-base w-full" [disabled]="true"  />
+        </div>
+        <div class="field col-2 text-left">
+          <label for="neighborhood">Bairro</label>
+          <input pInputText id="neighborhood" type="text" formControlName="neighborhood" class="text-base w-full"   />
+        </div>
+        <div class="field col-2 text-left">
+          <label for="state">Estado</label>
+          <input pInputText id="state" type="text" formControlName="state" class="text-base w-full"  />
+        </div>
+      </div>
+      <div class="grid">
+        <div class="field col-2 text-left">
+          <label for="city">Cidade</label>
+          <input pInputText id="city" type="text" formControlName="city" class="text-base w-full"  />
+        </div>
+        <div class="field col-4 text-left">
+          <label for="addressComplement">Complemento</label>
+          <input pInputText id="addressComplement" type="text" formControlName="addressComplement" class="text-base w-full"  />
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="field col-2 text-left">
+          <label for="cellPhone">Celular*</label>
+          <p-inputMask mask="(99)99999-9999" id="cellPhone" type="text" formControlName="cellPhone" styleClass="w-full" required />
+        </div>
+
+        <div class="field col-4 text-left">
+            <label for="adminName">Nome do administrador*</label>
+            <input pInputText id="adminName" type="text" formControlName="adminName" class="text-base w-full" />
+        </div>
+
+        <div class="field col-2 text-left">
+          <label for="adminFederalId">CPF*</label>
+          <p-inputMask mask="999.999.999-99" id="adminFederalId" type="text" formControlName="adminFederalId" styleClass="w-full" required />
+        </div>
+
+        <div class="field col-4 text-left">
+            <label for="adminEmail">E-mail*</label>
+            <input pInputText id="adminEmail" formControlName="adminEmail" class="text-base w-full" />
+        </div>
+      </div>
+
+    </div> <!-- formgrid -->
+
+    <div class="flex justify-content-end gap-2">
+        <p-button class="bg-gray border-round" label="Cancel" severity="secondary" (onClick)="businessDialog = false" />
+        <p-button class="bg-secondary border-round" label="Salvar" (click)="businessFormSubmit()" />
+    </div>
+</p-dialog>
+</div>

@@ -1,0 +1,47 @@
+<p-card header="Crie uma conta profissional" subheader="Preencha seus dados para ter acesso" styleClass="w-full">
+  <div class="p-fluid p-grid" [formGroup]="accountForm">
+    <div class="p-field p-col-12 mb-4">
+      <label class="p-field-label" for="name">Nome Completo</label>
+      <input pInputText id="name" placeholder="Digite seu nome completo" formControlName="name" required />
+      <p-message *ngIf="accountForm.get('name')?.invalid && (accountForm.get('name')?.dirty || accountForm.get('name')?.touched)" severity="error" text="Campo obrigatório"></p-message>
+    </div>
+
+    <div class="p-field p-col-12 mb-4">
+      <label class="p-field-label" for="email">E-mail</label>
+      <input pInputText id="email" placeholder="Digite seu e-mail cadastrado / ex.: email@gmail.com" formControlName="email" />
+      <p-message *ngIf="accountForm.get('email')?.invalid && (accountForm.get('email')?.dirty || accountForm.get('email')?.touched)" severity="error" text="Campo obrigatório"></p-message>
+    </div>
+
+    <div class="p-field p-col-12 mb-4">
+      <label class="p-field-label" for="password">Senha</label>
+      <p-password id="password"
+        placeholder="Digite uma senha forte"
+        promptLabel="Digite uma senha forte"
+        weakLabel="Fraca"
+        mediumLabel="Média"
+        strongLabel="Forte" [toggleMask]="true" formControlName="password"
+      />
+      <p-message *ngIf="accountForm.get('password')?.invalid && (accountForm.get('password')?.dirty || accountForm.get('password')?.touched)" severity="error" text="Campo obrigatório"></p-message>
+    </div>
+    <div class="p-field p-col-12 mb-4">
+      <label class="p-field-label" for="passwordConfirm">Confirmção de senha</label>
+      <p-password id="passwordConfirm"
+        placeholder="Digite uma senha forte"
+        promptLabel="Digite uma senha forte"
+        weakLabel="Fraca"
+        mediumLabel="Média"
+        strongLabel="Forte" [toggleMask]="true" formControlName="passwordConfirm"
+      />
+      <p-message *ngIf="accountForm.get('passwordConfirm')?.invalid && (accountForm.get('passwordConfirm')?.dirty || accountForm.get('passwordConfirm')?.touched)" severity="error" text="Campo obrigatório"></p-message>
+      <p-message *ngIf="accountForm.errors && accountForm.errors['passwordMismatch']" severity="error" text="Senha incompatível"></p-message>
+    </div>
+    <div class="p-field p-col-12 mb-4">
+      <p-checkbox  formControlName="checkAccept" [binary]="true" inputId="checkAccept" />
+      <label class="ml-2" for="checkAccept">Eu aceito os <a href="">Termos & Privacidade</a> e o <a href="">Contrato de Serviço</a></label>
+      <p-message *ngIf="accountForm.get('checkAccept')?.invalid" severity="error" text="Campo obrigatório"></p-message>
+    </div>
+    <div class="p-field p-col-12">
+      <button pButton type="button" label="Criar Conta" (click)="onSubmit()"></button>
+    </div>
+  </div>
+</p-card>

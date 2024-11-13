@@ -1,0 +1,122 @@
+<div class="flex" style="width: 95vw;">
+</div>
+<div class="grid grid-nogutter nested-grid">
+  <div class="col-3 bg-primary h-full">
+      <div class="text-left p-3 border-round-sm">
+        <span class="text-xs font-semibold">EMPRESA</span>
+
+        <p-panelMenu [model]="items" styleClass="mt-2">
+          <ng-template pTemplate="item" let-item>
+              <ng-container *ngIf="item.route; else urlRef">
+                  <a pRipple [routerLink]="item.route" class="flex align-items-center cursor-pointer px-3 py-2">
+                      <span [class]="item.icon"></span>
+                      <span class="ml-2 text-color">{{ item.label }}</span>
+                  </a>
+              </ng-container>
+              <ng-template #urlRef>
+                  <a pRipple *ngIf="item.url; else noLink" [href]="item.url" class="flex align-items-center cursor-pointer px-3 py-2">
+                      <span [class]="item.icon"></span>
+                      <span class="ml-2">{{ item.label }}</span>
+                  </a>
+                  <ng-template #noLink>
+                      <span pRipple class="flex align-items-center cursor-pointer px-3 py-2">
+                          <span [class]="item.icon"></span>
+                          <span class="ml-2">{{ item.label }}</span>
+                          <i *ngIf="item.items" class="pi pi-angle-down ml-auto"></i>
+                      </span>
+                  </ng-template>
+              </ng-template>
+          </ng-template>
+      </p-panelMenu>
+      </div>
+      <div *ngIf="account.ConfigCompleted" class="text-left p-3 border-round-sm">
+        <span class="text-xs font-semibold">VAGAS</span>
+
+        <p-panelMenu [model]="jobItems" styleClass="mt-2">
+          <ng-template pTemplate="item" cla let-item>
+              <ng-container *ngIf="item.route; else urlRef">
+                  <a pRipple [routerLink]="item.route" class="flex align-items-center cursor-pointer px-3 py-2">
+                      <span [class]="item.icon"></span>
+                      <span class="ml-2 text-color">{{ item.label }}</span>
+                  </a>
+              </ng-container>
+              <ng-template #urlRef>
+                  <a pRipple *ngIf="item.url; else noLink" [href]="item.url" class="flex align-items-center cursor-pointer px-3 py-2">
+                      <span [class]="item.icon"></span>
+                      <span class="ml-2">{{ item.label }}</span>
+                  </a>
+                  <ng-template #noLink>
+                      <span pRipple class="flex align-items-center cursor-pointer px-3 py-2">
+                          <span [class]="item.icon"></span>
+                          <span class="ml-2">{{ item.label }}</span>
+                          <i *ngIf="item.items" class="pi pi-angle-down ml-auto"></i>
+                      </span>
+                  </ng-template>
+              </ng-template>
+          </ng-template>
+      </p-panelMenu>
+      </div>
+
+      <div *ngIf="account.ConfigCompleted" class="text-left p-3 border-round-sm">
+        <span class="text-xs font-semibold">USUÁRIOS</span>
+
+        <p-panelMenu [model]="userItems" styleClass="mt-2">
+          <ng-template pTemplate="item" let-item>
+              <ng-container *ngIf="item.route; else urlRef">
+                  <a pRipple [routerLink]="item.route" class="flex align-items-center cursor-pointer px-3 py-2">
+                      <span [class]="item.icon"></span>
+                      <span class="ml-2 text-color">{{ item.label }}</span>
+                  </a>
+              </ng-container>
+              <ng-template #urlRef>
+                  <a pRipple *ngIf="item.url; else noLink" [href]="item.url" class="flex align-items-center cursor-pointer px-3 py-2">
+                      <span [class]="item.icon"></span>
+                      <span class="ml-2">{{ item.label }}</span>
+                  </a>
+                  <ng-template #noLink>
+                      <span pRipple class="flex align-items-center cursor-pointer px-3 py-2">
+                          <span [class]="item.icon"></span>
+                          <span class="ml-2">{{ item.label }}</span>
+                          <i *ngIf="item.items" class="pi pi-angle-down ml-auto"></i>
+                      </span>
+                  </ng-template>
+              </ng-template>
+          </ng-template>
+      </p-panelMenu>
+      </div>
+  </div>
+  <div class="col-9">
+      <div class="grid grid-nogutter">
+          <div class="col-12">
+            <p-menubar>
+              <ng-template pTemplate="start">
+              </ng-template>
+              <ng-template pTemplate="end">
+                  <div class="flex align-items-center gap-2 mr-2">
+                      <p-avatar icon="pi pi-user" shape="circle" />
+                      <span>{{account.name.split(' ')[0]}}</span>
+                  </div>
+              </ng-template>
+            </p-menubar>
+          </div>
+          <div class="col-9">
+            <div class="flex align-items-center justify-content-start p-3 font-bold">
+              EMPRESA
+            </div>
+        </div>
+          <div class="col-3">
+            <div class="flex justify-content-end p-1">
+              <p-breadcrumb styleClass="text-sm" [model]="bcItems">
+                <ng-template pTemplate="separator"> / </ng-template>
+              </p-breadcrumb>
+            </div>
+        </div>
+
+          <div class="col-12">
+              <div class="text-center p-2 border-round-sm">
+                <router-outlet />
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
