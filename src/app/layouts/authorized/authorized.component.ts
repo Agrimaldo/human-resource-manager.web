@@ -37,14 +37,11 @@ export class AuthorizedComponent implements OnInit {
 
   ngOnInit(): void { // Initialization logic here
     this.accountService.Get().subscribe((result: Account) => {
-      console.log('conta existe? ', result);
       if (!result) {
         this.router.navigate(['']);
       }
 
       this.account = result;
-
-      console.log("this.account >> ", this.account.ConfigCompleted);
 
       this.items = [
         {
@@ -89,6 +86,8 @@ export class AuthorizedComponent implements OnInit {
 
       if (!this.account.ConfigCompleted) {
         this.router.navigate(['/dashboard/business-config']);
+      } else {
+        this.router.navigate(['/dashboard']);
       }
     });
 

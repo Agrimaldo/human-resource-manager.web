@@ -19,6 +19,7 @@ import { ToastModule } from 'primeng/toast';
 import { BusinessFormKeys } from '../../../shared/enumerators';
 import { BusinessService } from '../../services/business.service';
 import { Business } from '../../interfaces/business.interface';
+import { CpfValidator, CnpjValidator } from '../../../shared/custom-validator';
 
 
 @Component({
@@ -52,7 +53,7 @@ export class BusinessConfigComponent {
     this.businessForm = this.formBuilder.group({
       type: [''],
       name: ['', [Validators.required]],
-      federalId: ['', [Validators.required]],
+      federalId: ['', [Validators.required, CnpjValidator]],
       zipCode: [''],
       address: [''],
       neighborhood: [''],
@@ -61,7 +62,7 @@ export class BusinessConfigComponent {
       addressComplement: [''],
       cellPhone: ['', [Validators.required]],
       adminName: ['', [Validators.required]],
-      adminFederalId: ['', [Validators.required]],
+      adminFederalId: ['', [Validators.required, CpfValidator]],
       adminEmail: ['', [Validators.required]]
     });
   }
@@ -88,7 +89,6 @@ export class BusinessConfigComponent {
 
   businessFormSubmit() {
     if (this.businessForm.valid) {
-      console.log('Bussiness Form Submitted', this.businessForm.value);
 
       const newBusiness: Business = {
         type: this.businessForm.get('type')?.value,
@@ -110,6 +110,7 @@ export class BusinessConfigComponent {
         this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Empresa Matriz cadastrada com sucesso' });
         this.account.ConfigCompleted = true;
         this.accountService.Update(this.account).subscribe((result: boolean) => {
+          this.reloadPage();
           this.router.navigate(['/dashboard']);
         });
       });
@@ -119,6 +120,8 @@ export class BusinessConfigComponent {
       this.messageService.addAll(messages);
     }
   }
+
+  reloadPage(): void { window.location.reload(); }
 
   getErrorMessageList(formGroup: FormGroup): Message[] {
     const errors: Message[] = [];
